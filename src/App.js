@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 // showing vs-code github setup
 class App extends Component {
-  
+
   state = {
     items: [{ id: 1, title: "wake up" }, { id: 2, title: "make breakfast" }],
-    id: uuid(),
+    id: uuidv4(),
     item: "",
     editItem: false
   };
