@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, v4 } from 'uuid';
 import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
@@ -7,26 +7,56 @@ import TodoList from "./components/TodoList";
 class App extends Component {
 
   state = {
-    items: [{ id: 1, title: "wake up" }, { id: 2, title: "make breakfast" }],
+    items: [],///顯示的todolist
     id: uuidv4(),
-    item: "",
+    item: "",///被操作的單獨object
     editItem: false
   };
 
   handleChange = e => {
-    console.log("handle change");
+    this.setState({
+      item:e.target.value
+    })
+    // console.log(e.target.value)
   };
+
   handleSubmit = e => {
-    console.log("handle Submit");
+    e.preventDefault();
+    const New = {
+      id:this.state.id,
+      title:this.state.item
+    }
+    const Update = [...this.state.items,New]
+
+    this.setState({
+      items:Update,
+      item:'',
+      id:uuidv4(),
+      editItem:false
+    },()=>console.log(this.state.items))
   };
+
   clearList = () => {
-    console.log("clear list ");
+    this.setState({
+      items:[]
+    })
   };
   handleDelete = id => {
-    console.log(`handle edit ${id}`);
+    const fliterItems = this.state.items.filter(item => item.id !== id);
+    this.setState({
+      items:fliterItems
+    })
   };
   handleEdit = id => {
-    console.log(`edit edit ${id}`);
+    const filterItems = this.state.items.filter(item => item.id !== id);
+    const selectone = this.state.items.find(item => item.id === id);
+
+    this.setState({
+      item : selectone.title,
+      items : filterItems,
+      id:id,
+      editItem:true,
+    })
   };
   render() {
     return (

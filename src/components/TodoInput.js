@@ -12,9 +12,9 @@ export default class TodoInput extends Component {
                 <i className="fas fa-book" />
               </div>
             </div>
-            <input type="text" className="form-control text-capitalize" placeholder="Add ToDo Itme"/>
+            <input type="text" className="form-control text-capitalize" placeholder="Add ToDo Itme" value={item} onChange={handleChange}/>
           </div>
-          <button type="submit" className="btn btn-block btn-primary mt-3 text-uppercase ">add item</button>
+          <button type="submit" disabled={item ? false : true} className={editItem ? "btn btn-block btn-success mt-3 text-uppercase " : "btn btn-block btn-primary mt-3 text-uppercase " }>{editItem ? "edit item" :"add item"} </button>
         </form>
       </div>
     );
